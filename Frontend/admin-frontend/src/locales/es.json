@@ -1,0 +1,15 @@
+{
+  "form_title": "Añadir Pastel Dulce Nuevo",
+  "product_name": "Nombre del Producto",
+  "price": "Precio ($)",
+  "select_sizes": "Seleccionar Tamaños Disponibles",
+  "upload_image": "Subir Imagen",
+  "category": "Categoría",
+  "save_btn": "Guardar Producto en la Panadería",
+  "placeholder_name": "ej. Cielo de Fresa",
+  "placeholder_category": "Boda, Cumpleaños, etc.",
+  "edit_title": "Actualizar detalles del pastel",
+  "update_btn": "Guardar cambios",
+  "cancel_btn": "Regresar"
+
+}

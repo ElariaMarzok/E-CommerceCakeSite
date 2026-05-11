@@ -1,0 +1,110 @@
+
+import { useState, useEffect } from 'react';
+import { Heart, ShoppingCart } from 'lucide-react';
+import { useCart } from "../Context/CartContext";
+import { Link } from 'react-router-dom';
+
+export default function Catering() {
+  // 1. حالة لتخزين البيانات وحالة التحميل
+  const [cateringItems, setCateringItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const { addToCart } = useCart();
+const API_URL = import.meta.env.VITE_API_URL;
+
+  // 2. جلب البيانات من السيرفر عند تحميل المكون
+  useEffect(() => {
+    const fetchCatering = async () => {
+      try {
+        const response = await fetch(`${API_URL}/cakes?category=catering`);
+        const data = await response.json();
+        
+        // 3. فلترة البيانات لعرض الكاتيجوري 'catering' فقط
+        const filteredCatering = data.filter(item => item.category === 'catering');
+        
+        setCateringItems(filteredCatering);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching catering items:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchCatering();
+  }, []);
+
+  const handleAdd = (item) => {
+    const itemToCart = {
+      id: item._id,
+      name: item.name,
+      price: item.prices?.[0]?.price || 0,
+      img: API_URL + (item.images?.[0] || "")
+    };
+    addToCart(itemToCart);
+  };
+
+  // واجهة التحميل البسيطة
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto py-20 text-center text-pink-500 font-bold">
+        Loading Catering Services... ✨
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white py-12 px-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Title Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">Our Special Catering</h1>
+          <div className="h-1 w-20 bg-pink-400 mx-auto rounded-full"></div>
+        </div>
+
+        {/* التحقق إذا كانت القائمة فارغة */}
+        {cateringItems.length === 0 && (
+          <p className="text-center text-gray-400 py-10">No catering items available at the moment.</p>
+        )}
+
+        {/* Grid System */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {cateringItems.map((item) => (
+            <div 
+              key={item._id} 
+              className="group bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-pink-50 overflow-hidden"
+            >
+              {/* Image Container */}
+              <Link 
+                to={`/details/${item._id}`}
+                state={{ product: item }} 
+                className="relative h-72 overflow-hidden block"
+              >
+                <img 
+                  src={`${API_URL}${item.images?.[0] || ''}`}
+                  alt={item.name} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </Link>
+
+              {/* Content Section */}
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">{item.name}</h3>
+                <p className="text-pink-600 font-bold text-lg mb-4">
+                  {item.prices?.[0]?.price || 0} EGP
+                </p>
+                
+                <button 
+                  onClick={() => handleAdd(item)}
+                  className="flex items-center justify-center gap-2 w-full bg-pink-50 text-pink-600 font-semibold py-3 rounded-2xl hover:bg-pink-600 hover:text-white transition-all"
+                >
+                  <ShoppingCart size={18} />
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

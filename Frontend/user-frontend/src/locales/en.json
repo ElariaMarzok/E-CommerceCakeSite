@@ -1,0 +1,38 @@
+{
+  "navbar": {
+    "home": "Home",
+    "categories": "Categories",
+    "boxes": "Boxes",
+    "bakery": "Bakery",
+    "cakes": "Cakes",
+    "catering": "Catering",
+    "sweets": "Sweets",
+    "language": "Language"
+  },
+  "footer": {
+    "about_title": "About Us",
+    "about_text": "In The Catering Service Mary’s Cake we wish that this season is full of sweetness, love, and special moments. Thank you for letting us be part of your celebrations. Happy holidays and a prosperous New Year!",
+    "contact_title": "Contact Us",
+    "whatsapp": "WhatsApp"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty 🍰",
+    "subtotal": "Subtotal",
+    "contact_info": "Contact Info",
+    "full_name": "Full Name",
+    "phone_number": "Phone Number",
+    "address": "Address",
+    "special_notes": "Special Notes",
+    "placeholder_name": "your name...",
+    "placeholder_address": "Street, City, Building...",
+    "notes_placeholder": "Anything else? (e.g., Write 'Happy Birthday')",
+    "delivery_fee": "Delivery Fee",
+    "total_amount": "Total Amount",
+    "complete_order": "Complete Order",
+    "success_msg": "Order Recorded Successfully!",
+    "error_name": "The name must be at least 3 letters",
+    "error_phone": "Invalid phone number",
+    "error_address": "Please provide a detailed address"
+  }
+}

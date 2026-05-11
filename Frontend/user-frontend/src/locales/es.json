@@ -1,0 +1,40 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "categories": "Categorías",
+    "boxes": "Cajas",
+    "bakery": "Panadería",
+    "cakes": "Pasteles",
+    "catering": "Catering",
+    "sweets": "Dulces",
+    "language": "Idioma"
+  },
+  "footer": {
+    "about_title": "Sobre Nosotros",
+    "about_text": "En el Servicio de Catering de Mary's Cake deseamos que esta temporada esté llena de dulzura, amor y momentos especiales. Gracias por permitirnos ser parte de sus celebraciones. ¡Felices fiestas y un próspero Año Nuevo!",
+    "contact_title": "Contáctenos",
+    "whatsapp": "WhatsApp"
+  
+},
+"cart": {
+    "title": "Tu Carrito",
+    "empty": "Tu carrito está vacío 🍰",
+    "subtotal": "Subtotal",
+    "contact_info": "Información de Contacto",
+    "full_name": "Nombre Completo",
+    "phone_number": "Número de Teléfono",
+    "address": "Dirección",
+    "special_notes": "Notas Especiales",
+    "placeholder_name": "Tu nombre aquí...",
+    "placeholder_address": "Calle, Ciudad, Edificio...",
+    "notes_placeholder": "¿Algo más? (ej. Escribe 'Feliz Cumpleaños')",
+    "delivery_fee": "Costo de Envío",
+    "total_amount": "Monto Total",
+    "complete_order": "Completar Pedido",
+    "success_msg": "¡Pedido Registrado con Éxito!",
+    "error_name": "El nombre debe tener al menos 3 letras",
+    "error_phone": "Número de teléfono inválido",
+    "error_address": "Por favor, proporcione una dirección detallada"
+  }
+  
+}

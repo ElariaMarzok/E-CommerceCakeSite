@@ -1,0 +1,14 @@
+{
+  "form_title": "Add New Sweet Cake",
+  "product_name": "Product Name",
+  "price": "Price ($)",
+  "select_sizes": "Select Available Sizes",
+  "upload_image": "Upload Image",
+  "category": "Category",
+  "save_btn": "Save Product to Bakery",
+  "placeholder_name": "e.g. Strawberry Heaven",
+  "placeholder_category": "Wedding, Birthday, etc.",
+  "edit_title" : "Update Cake Details",
+  "update_btn": "Save Changes",
+  "cancel_btn": "Go Back"
+}
