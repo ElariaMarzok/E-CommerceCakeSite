@@ -5,10 +5,13 @@ node_modules/
 .env
 .env.local
 
-# التجاهل لمجلدات الرفع (اختياري لو مش عايزه صور الاختبار تترفع)
+# التجاهل لمجلدات الرفع)
 Backend/backend/uploads/
 
 # التجاهل لملفات النظام
 .DS_Store
 dist/
 build/
+
+
+

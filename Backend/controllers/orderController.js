@@ -20,4 +20,28 @@ exports.getAllOrders = async (req, res) => {
     }
 };
 
+//تغير حاله الطلب 
+exports.updateOrderStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+
+
+        const updatedOrder = await Order.findByIdAndUpdate(
+            id,
+            { status: status },
+            { new: true } // ليرجع البيانات بعد التعديل
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+
+        res.status(200).json(updatedOrder);
+    } catch (error) {
+        console.error("Error updating order:", error);
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
+
 
