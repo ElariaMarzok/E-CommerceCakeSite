@@ -90,7 +90,7 @@ useEffect(() => {
 
     const sizeKeys = Object.keys(selectedSizes);
     if (sizeKeys.length === 0 || sizeKeys.some(s => selectedSizes[s] === "")) {
-      alert("Please select sizes and enter all prices! 💰");
+      alert("Please select sizes and enter all prices! ");
       return;
     }
     //  تجهيز كائن البيانات (Data Object) بنفس الأسماء اللي الباك إند مستنيها

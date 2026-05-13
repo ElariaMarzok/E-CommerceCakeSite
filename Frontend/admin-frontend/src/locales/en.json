@@ -10,5 +10,77 @@
   "placeholder_category": "Wedding, Birthday, etc.",
   "edit_title" : "Update Cake Details",
   "update_btn": "Save Changes",
-  "cancel_btn": "Go Back"
+  "cancel_btn": "Go Back" ,
+
+  
+  "dashboard": {
+    "total_varieties": "Total Varieties",
+    "search_placeholder": "Search cakes...",
+    "add_new": "Add New Product",
+    "clear_all": "Clear All",
+    "table_product": "Product",
+    "table_category": "Category",
+    "table_prices": "Sizes & Prices",
+    "table_actions": "Actions",
+    "empty_title": "Inventory Empty",
+    "empty_desc": "No cakes match your search or inventory is empty.",
+    "confirm_delete": "Are you sure you want to delete this sweet masterpiece? 🎂🗑️",
+    "confirm_clear": "Clear inventory?",
+    "general": "General"
+  },
+
+
+  "navbar": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "orders": "Orders",
+    "language_label": "Language"
+  },
+
+
+  "users": {
+    "title": "All Customers",
+    "subtitle": "Real customers who placed orders",
+    "stat_card": "Unique Customers",
+    "table_name": "Customer Name",
+    "table_phone": "Phone Number",
+    "table_location": "Location",
+    "table_orders": "Orders",
+    "loading": "Loading Customers...",
+    "orders_count": "{{count}} Orders"
+  },
+
+
+  "orders": {
+    "loading": "Loading Cake Orders...",
+    "stats": {
+      "revenue": "Total Revenue",
+      "pending": "Pending",
+      "top_selling": "Top Selling"
+    },
+    "table": {
+      "date": "Date",
+      "customer": "Customer",
+      "phone": "Phone",
+      "total": "Total",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "pending": "Pending",
+      "completed": "Completed"
+    },
+    "modal": {
+      "title": "Order Details",
+      "address": "Address",
+      "notes": "Notes",
+      "no_notes": "No notes",
+      "items_ordered": "Items Ordered:",
+      "size": "Size",
+      "standard": "Standard",
+      "mark_complete": "Mark as Completed",
+      "order_done": "Order Completed ✓",
+      "updating": "Updating..."
+    }
+  }
 }

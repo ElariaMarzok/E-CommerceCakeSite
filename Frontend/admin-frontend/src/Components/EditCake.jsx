@@ -131,7 +131,7 @@ export default function EditCake() {
       const result = await response.json();
 
       if (response.ok) {
-        alert("Masterpiece updated successfully! ✨");
+        alert("Masterpiece updated successfully! ");
         navigate('/');
       } else {
         alert("Error updating cake: " + (result.message || "Unknown error"));

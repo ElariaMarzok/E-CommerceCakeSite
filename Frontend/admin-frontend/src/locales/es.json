@@ -10,6 +10,76 @@
   "placeholder_category": "Boda, Cumpleaños, etc.",
   "edit_title": "Actualizar detalles del pastel",
   "update_btn": "Guardar cambios",
-  "cancel_btn": "Regresar"
+  "cancel_btn": "Regresar",
+
+  "dashboard": {
+    "total_varieties": "Variedades Totales",
+    "search_placeholder": "Buscar pasteles...",
+    "add_new": "Agregar Nuevo Producto",
+    "clear_all": "Limpiar Todo",
+    "table_product": "Producto",
+    "table_category": "Categoría",
+    "table_prices": "Tamaños y Precios",
+    "table_actions": "Acciones",
+    "empty_title": "Inventario Vacío",
+    "empty_desc": "No hay pasteles que coincidan con tu búsqueda.",
+    "confirm_delete": "¿Estás seguro de que quieres eliminar esta obra maestra? 🎂🗑️",
+    "confirm_clear": "¿Limpiar inventario?",
+    "general": "General"
+  },
+
+  "navbar": {
+    "dashboard": "Tablero",
+    "users": "Usuarios",
+    "orders": "Pedidos",
+    "language_label": "Idioma"
+  },
+
+  
+  "users": {
+    "title": "Todos los Clientes",
+    "subtitle": "Clientes reales que realizaron pedidos",
+    "stat_card": "Clientes Únicos",
+    "table_name": "Nombre del Cliente",
+    "table_phone": "Número de Teléfono",
+    "table_location": "Ubicación",
+    "table_orders": "Pedidos",
+    "loading": "Cargando Clientes...",
+    "orders_count": "{{count}} Pedidos"
+  },
+
+
+  "orders": {
+    "loading": "Cargando pedidos de pasteles...",
+    "stats": {
+      "revenue": "Ingresos Totales",
+      "pending": "Pendiente",
+      "top_selling": "Más Vendido"
+    },
+    "table": {
+      "date": "Fecha",
+      "customer": "Cliente",
+      "phone": "Teléfono",
+      "total": "Total",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "status": {
+      "pending": "Pendiente",
+      "completed": "Completado"
+    },
+    "modal": {
+      "title": "Detalles del Pedido",
+      "address": "Dirección",
+      "notes": "Notas",
+      "no_notes": "Sin notas",
+      "items_ordered": "Artículos Pedidos:",
+      "size": "Tamaño",
+      "standard": "Estándar",
+      "mark_complete": "Marcar como Completado",
+      "order_done": "Pedido Completado ✓",
+      "updating": "Actualizando..."
+    }
+  }
 
 }

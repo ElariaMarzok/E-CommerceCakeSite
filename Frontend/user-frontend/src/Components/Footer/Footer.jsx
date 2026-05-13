@@ -36,7 +36,10 @@ export default function Footer() {
               </a>
               
            
-              <a href="#" className="hover:scale-125 transition-transform text-pink-600 bg-white p-3 rounded-full shadow-sm">
+              <a href="https://www.instagram.com/maryscakecrshop?igsh=MXYyeXk4eWxzY2U5cg=="
+               target="_blank" 
+               rel="noopener noreferrer"
+               className="hover:scale-125 transition-transform text-pink-600 bg-white p-3 rounded-full shadow-sm">
                 <Instagram size={28} />
               </a>
               
@@ -63,7 +66,7 @@ export default function Footer() {
               </p>
                {/* <p className='hover:hover:text-pink-500 cursor-pointer'>WhatsApp: 8916-9520</p> */}
                <p className='hover:hover:text-pink-500 cursor-pointer'> 
-                <a href="https://www.facebook.com/share/1E2wuX9oVG/" 
+                <a href="https://www.instagram.com/maryscakecrshop?igsh=MXYyeXk4eWxzY2U5cg==" 
                  target="_blank"
                  rel="noopener noreferrer">
                   @maryscakeshopcr </a></p>

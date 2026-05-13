@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Users as UsersIcon, Mail, User, Trash2, Phone, MapPin } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function Users() {
+  const { t } = useTranslation();
   const [uniqueCustomers, setUniqueCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const API_URL = import.meta.env.VITE_API_URL;
@@ -25,7 +27,7 @@ export default function Users() {
               phone: order.customer.phone,
               address: order.customer.address,
               lastOrderDate: order.createdAt,
-              orderCount: 1
+              orderCounئt: 1
             });
           } else {
             // لو موجود، يمكننا زيادة عداد طلباته
@@ -58,9 +60,9 @@ export default function Users() {
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
             <h1 className="text-2xl font-black text-gray-800 flex items-center gap-2">
-              <UsersIcon className="text-pink-500" /> All Customer 
+              <UsersIcon className="text-pink-500" /> {t('users.stat_card')}
             </h1>
-            <p className="text-gray-400 font-medium text-sm">Real customers who placed orders</p>
+            <p className="text-gray-400 font-medium text-sm">{t('users.subtitle')}</p>
           </div>
 
           <div className="bg-white px-8 py-4 rounded-4xl shadow-sm border border-gray-100 flex items-center gap-4 group hover:border-pink-200 transition-all">
@@ -68,7 +70,7 @@ export default function Users() {
               <UsersIcon size={24} />
             </div>
             <div>
-              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Unique Customers</p>
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{t('users.stat_card')}</p>
               <h3 className="text-2xl font-black text-gray-800">{totalUniqueUsers}</h3>
             </div>
           </div>
@@ -76,13 +78,14 @@ export default function Users() {
 
         {/* Customers Table */}
         <div className="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-          <table className="w-full text-left">
+          <div className="overflow-x-auto">
+          <table className="w-full text-left min-w-[600px]">
             <thead className="bg-gray-50 border-b border-gray-100">
               <tr>
-                <th className="px-8 py-5 text-xs font-black text-gray-400 uppercase">Customer Name</th>
-                <th className="px-8 py-5 text-xs font-black text-gray-400 uppercase">Phone Number</th>
-                <th className="px-8 py-5 text-xs font-black text-gray-400 uppercase">Location</th>
-                <th className="px-8 py-5 text-xs font-black text-gray-400 uppercase text-center">Orders</th>
+                <th className="px-8 py-5 text-xs font-black text-gray-400 uppercase">{t('users.table_name')}</th>
+                <th className="px-8 py-5 text-xs font-black text-gray-400 uppercase">{t('users.table_phone')}</th>
+                <th className="px-8 py-5 text-xs font-black text-gray-400 uppercase">{t('users.table_location')}</th>
+                <th className="px-8 py-5 text-xs font-black text-gray-400 uppercase text-center">{t('users.table_orders')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -118,13 +121,14 @@ export default function Users() {
 
                   <td className="px-8 py-5 text-center">
                     <span className="bg-pink-50 text-pink-600 px-3 py-1 rounded-full text-xs font-black">
-                      {customer.orderCount} Orders
+                      {t('users.orders_count', { count: customer.orderCount })}
                     </span>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
         </div>
       </div>
     </div>

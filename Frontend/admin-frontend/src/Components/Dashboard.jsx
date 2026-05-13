@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Pencil, Trash2, PlusCircle, Search, Plus, Package } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function Dashboard() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [cakes, setCakes] = useState([]);
   const navigate = useNavigate();
@@ -63,7 +65,7 @@ const handleDelete = async (id) => {
             <Package size={24} />
           </div>
           <div>
-            <p className="text-sm text-gray-500 font-medium">Total Varieties</p>
+            <p className="text-sm text-gray-500 font-medium">{t('dashboard.total_varieties')}</p>
             <p className="text-2xl font-bold text-gray-800">{cakes.length}</p>
           </div>
         </div>
@@ -79,7 +81,7 @@ const handleDelete = async (id) => {
             <input
               onChange={(e) => setSearchQuery(e.target.value)}
               type="text"
-              placeholder="Search cakes..."
+              placeholder={t('dashboard.search_placeholder')}
               className="pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-pink-200 focus:bg-white transition-all w-full md:w-64 text-sm"
             />
           </div>
@@ -90,14 +92,14 @@ const handleDelete = async (id) => {
               className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold px-6 py-3 rounded-2xl shadow-lg shadow-pink-100 hover:shadow-pink-200 active:scale-95 transition-all text-sm"
             >
               <Plus size={18} strokeWidth={3} />
-              <span>Add New Product</span>
+              <span>{t('dashboard.add_new')}</span>
             </button>
             
             <button 
               onClick={() => { if(window.confirm("Clear inventory?")) setCakes([]) }} 
               className="text-red-400 hover:bg-red-50 px-4 py-3 rounded-2xl text-xs font-bold transition-colors border border-transparent hover:border-red-100"
             >
-              Clear All
+              {t('dashboard.clear_all')}
             </button>
           </div>
         </div>
@@ -107,10 +109,10 @@ const handleDelete = async (id) => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gray-50/50 text-gray-400 text-[10px] uppercase tracking-widest font-black">
-                <th className="px-6 py-4">Product</th>
-                <th className="px-6 py-4">Category</th>
-                <th className="px-6 py-4">Sizes & Prices</th>
-                <th className="px-6 py-4 text-center">Actions</th>
+                <th className="px-6 py-4">{t('dashboard.table_product')}</th>
+                <th className="px-6 py-4">{t('dashboard.table_category')}</th>
+                <th className="px-6 py-4">{t('dashboard.table_prices')}</th>
+                <th className="px-6 py-4 text-center">{t('dashboard.table_actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -129,7 +131,7 @@ const handleDelete = async (id) => {
                   {/* Category */}
                   <td className="px-6 py-4">
                     <span className="text-[10px] font-bold text-gray-500 bg-gray-100 px-3 py-1.5 rounded-lg uppercase tracking-wider">
-                      {cake.category || 'General'}
+                      {cake.category || t('dashboard.general')}
                     </span>
                   </td>
 
@@ -182,8 +184,8 @@ const handleDelete = async (id) => {
               <div className="bg-gray-50 p-6 rounded-full mb-4 text-gray-200">
                 <PlusCircle size={48} />
               </div>
-              <h3 className="text-gray-400 font-bold text-lg">Inventory Empty</h3>
-              <p className="text-gray-300 text-sm">No cakes match your search or inventory is empty.</p>
+              <h3 className="text-gray-400 font-bold text-lg">{t('dashboard.empty_title')}</h3>
+              <p className="text-gray-300 text-sm">{t('dashboard.empty_desc')}</p>
             </div>
           )}
         </div>
