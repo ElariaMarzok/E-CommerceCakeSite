@@ -1,11 +1,12 @@
 {
+
   "navbar": {
     "home": "Inicio",
     "categories": "Categorías",
     "boxes": "Cajas",
     "bakery": "Panadería",
     "cakes": "Pasteles",
-    "catering": "Catering",
+    "catering": "catering",
     "sweets": "Dulces",
     "language": "Idioma"
   },
@@ -33,8 +34,55 @@
     "complete_order": "Completar Pedido",
     "success_msg": "¡Pedido Registrado con Éxito!",
     "error_name": "El nombre debe tener al menos 3 letras",
-    "error_phone": "Número de teléfono inválido",
-    "error_address": "Por favor, proporcione una dirección detallada"
+    "items_count": "Artículos",
+   "cart.backup_phone": "Teléfono de respaldo (Opcional)",
+"cart.error_backup_phone": "Por favor, introduce un número de teléfono válido",
+"cart.placeholder_backup_phone": "Ej. +34 612 345 678"
+  },
+
+    "bakery_title": "Nuestra Panadería Especial",
+    "add_to_cart": "Añadir al carrito",
+     "currency": "EGP",
+     "boxes_title": "Nuestras Cajas Especiales",
+  "loading_boxes": "Cargando Cajas... 🎁",
+  "no_boxes_found": "No hay cajas especiales disponibles en este momento.",
+  "cakes_title": "Nuestros Pasteles Especiales",
+  "loading_cakes": "Cargando Obras Maestras... 🍰",
+  "no_cakes_found": "No se encontraron pasteles en esta categoría todavía.",
+  "catering_title": "Nuestro Catering Especial",
+  "loading_catering": "Cargando Servicios de Catering... ✨",
+  "no_catering_found": "No hay servicios de catering disponibles por el momento.",
+
+  "loading_sweets": "Cargando Dulces... 🍬",
+  "sweets_title": "Nuestros Dulces Especiales",
+  "no_sweets_found": "No hay dulces especiales disponibles en este momento."
+  ,
+
+  "hero": {
+  "title_1": "Horneado Fresco",
+  "title_2": "Con Amor"
+}, 
+"categories_section": {
+    "title": "Nuestras Categorías",
+    "alt_cake": "pastel",
+    "premium_tag": "Calidad Premium • Hecho a Mano",
+    "in_stock": "En Stock"
   }
-  
+  ,
+  "all_items": "Todos" ,
+  "all_items_title": "Nuestro Menú Completo",
+"loading_all_items": "Cargando Todas las Delicias... ✨",
+  "details": {
+    "loading_details": "Cargando detalles deliciosos... ✨",
+    "back": "Volver a la página anterior",
+    "go_back": "Volver",
+    "product_not_found": "Producto no encontrado.",
+    "category": "Categoría:",
+    "premium_collection": "Colección Premium",
+    "no_description": "No hay descripción disponible.",
+    "select_size": "Seleccionar tamaño",
+    "total_amount": "Monto Total",
+    "price_not_available": "Precio no disponible",
+    "out_of_stock": "AGOTADO"
+  }
 }

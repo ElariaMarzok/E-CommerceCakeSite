@@ -34,7 +34,12 @@
     "dashboard": "Dashboard",
     "users": "Users",
     "orders": "Orders",
-    "language_label": "Language"
+    "grow": "Grow",
+    "language_label": "Language",
+    "signup": "Sign Up",
+    "signin": "Sign In",
+    "welcome": "Hi",
+    "signout": "Sign Out"
   },
 
 
@@ -82,5 +87,50 @@
       "order_done": "Order Completed ✓",
       "updating": "Updating..."
     }
+  },
+  "currency": "$",
+  
+  "months": {
+    "jan": "Jan", "feb": "Feb", "mar": "Mar", "apr": "Apr", "may": "May", "jun": "Jun",
+    "jul": "Jul", "aug": "Aug", "sep": "Sep", "oct": "Oct", "nov": "Nov", "dec": "Dec"
+  },
+  "grow": {
+    "loading": "Loading Dashboard Analytics...",
+    "title": "Grow Business",
+    "subtitle": "Track your bakery performance and monthly growth.",
+    "year": "Year",
+    "daily": "Daily Revenue",
+    "weekly": "Weekly Revenue (7d)",
+    "yearly": "Yearly Total",
+    "monthly_sales": "Monthly Sales Percentage",
+    "star_product": "Star Product of the Year",
+    "star_product_sub": "The item that generated the highest revenue.",
+    "items_sold": "Items Sold",
+    "pieces": "Pieces",
+    "total_revenue": "Total Revenue",
+    "no_data": "No sales data recorded yet.",
+    "total_unique": "Total Unique Items Sold",
+    "items": "Items",
+    "table_title": "All Items Performance & Orders Count",
+    "th_name": "Product Name",
+    "th_orders": "Total Orders Count",
+    "th_qty": "Total Quantities Sold",
+    "th_revenue": "Total Revenue Achieved",
+    "orders": "Orders"
+  },
+  "signup": {
+    "title": "Create Your Account",
+    "subtitle": "Join us to enjoy exclusive bakery delights and offers!",
+    "name": "Full Name",
+    "email": "Email Address",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "signup_btn": "Sign Up",
+    "have_account": "Already have an account?",
+    "signin_link": "Sign In",
+    "error_name": "Name must be at least 3 characters",
+    "error_email": "Please enter a valid email address",
+    "error_password": "Password must be at least 6 characters",
+    "error_confirm_password": "Passwords do not match"
   }
 }

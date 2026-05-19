@@ -11,10 +11,13 @@ const Navbar = () => {
   const { i18n, t } = useTranslation();
 
   const categoryLinks = [
+    { name: t('all_items'), path: '/all' },
     { name: t('navbar.bakery'), path: '/bakery' },
     { name: t('navbar.cakes'), path: '/cakes' },
     { name: t('navbar.catering'), path: '/catering' },
-    { name: t('navbar.sweets'), path: '/sweets' },
+    { name: t('navbar.sweets'), path: '/sweets' }
+    
+
   ];
 
   const toggleLanguage = () => {
@@ -44,6 +47,8 @@ const Navbar = () => {
           {/* Center: Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/" className="text-gray-700 hover:text-pink-500 font-medium">{t('navbar.home')}</Link>
+
+            {/* <Link to="/all" className="text-gray-700 hover:text-pink-500 font-medium">{t('all_items')}</Link> */}
             
             <div className="relative group py-4">
               <button className="flex items-center gap-1 text-gray-700 hover:text-pink-500 font-medium uppercase tracking-wide">

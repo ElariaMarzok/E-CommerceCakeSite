@@ -3,8 +3,11 @@ const express = require('express');
 const app = express();
 const cakeRoutes = require('./routes/cakeRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const authRoutes = require('./routes/authRoutes');
 const cors = require('cors');
 const mongoose = require('mongoose');
+
+
 
 
 require('dotenv').config();
@@ -28,6 +31,7 @@ app.use('/uploads', express.static('uploads')); // serve uploaded files
 // Routes
 app.use('/cakes', cakeRoutes);
 app.use('/orders', orderRoutes);
+app.use('/auth', authRoutes);
 
 // Server listen
 const PORT = 4000;

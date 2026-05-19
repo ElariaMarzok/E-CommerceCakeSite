@@ -1,12 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, CloudUpload, X, Image as ImageIcon } from 'lucide-react'; 
-import { useEffect } from 'react'; 
 
-
-
-export default function AddProduct({ cakes, setCakes }) {
+export default function AddProduct() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   
@@ -14,20 +11,19 @@ export default function AddProduct({ cakes, setCakes }) {
   const [imagesData, setImagesData] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState({});
   const [description, setDescription] = useState(''); 
-
+  const [cakes, setCakes] = useState([]); // حالة لتخزين قائمة الكعكات الحالية
 
   // تنظيف الذاكرة من Object URLs عند إلغاء تحميل المكون أو تحديث الصور
-useEffect(() => {
-  // هذه الدالة تعمل فقط عندما يتم إغلاق أو مغادرة الصفحة (Unmount)
-  return () => {
-    imagesData.forEach(image => {
-      if (image.preview) {
-        URL.revokeObjectURL(image.preview);
-        console.log("Memory Cleaned: ObjectURL revoked");
-      }
-    });
-  };
-}, [imagesData]); // سيراقب التغييرات وينظف عند الحاجة
+  useEffect(() => {
+    return () => {
+      imagesData.forEach(image => {
+        if (image.preview) {
+          URL.revokeObjectURL(image.preview);
+          console.log("Memory Cleaned: ObjectURL revoked");
+        }
+      });
+    };
+  }, [imagesData]);
 
   // language toggle function
   const toggleLanguage = () => {
@@ -35,8 +31,6 @@ useEffect(() => {
     i18n.changeLanguage(newLang);
   };
 
-
-  
   const handleSizeToggle = (size) => {
     setSelectedSizes(prev => {
       const newSizes = { ...prev };
@@ -73,16 +67,14 @@ useEffect(() => {
     });
   };
 
-
   // دالة معالجة إرسال النموذج مع البيانات الجديدة للمنتج
   const handleSubmit = async (e) => { 
     e.preventDefault();
     const formData = new FormData(e.target);
     const name = formData.get('productName');
     const category = formData.get('productCategory');
-    const description = formData.get('description');
 
-  //  التحقق من صحة البيانات قبل الإرسال
+    //  التحقق من صحة البيانات قبل الإرسال
     if (!name || imagesData.length === 0) {
       alert("Please enter a name and upload at least one image! 🍰");
       return;
@@ -93,7 +85,8 @@ useEffect(() => {
       alert("Please select sizes and enter all prices! ");
       return;
     }
-    //  تجهيز كائن البيانات (Data Object) بنفس الأسماء اللي الباك إند مستنيها
+
+    //  تجهيز كائن البيانات (Data Object) بنفس الأسماء التي يتوقعها الباك إند
     const cakeData = {
       name: name,
       category: category,
@@ -104,32 +97,37 @@ useEffect(() => {
     };
 
     try {
-      // 3. إرسال البيانات للباك إند
+      // بناء الـ FormData للإرسال إلى السيرفر
       const multipartData = new FormData();
-    multipartData.append('name', name);
-    multipartData.append('description', description || '');
-    multipartData.append('category', category);
-    multipartData.append('prices', JSON.stringify(cakeData.prices));
-    imagesData.forEach(image => {
-      multipartData.append('images', image.file);
-    });
+      multipartData.append('name', name);
+      multipartData.append('name_es', name); // تأمين حقل الاسم المترجم
+      
+      // نأخذ قيمة الـ description من الـ State مباشرةً ونرسلها بكلا الحقلين لضمان استقبالها
+      multipartData.append('description', description || '');
+      multipartData.append('description_es', description || '');
+      
+      multipartData.append('category', category);
+      multipartData.append('prices', JSON.stringify(cakeData.prices));
+      
+      imagesData.forEach(image => {
+        multipartData.append('images', image.file);
+      });
 
-    const response = await fetch('http://localhost:4000/cakes', {
-      method: 'POST',
-      body: multipartData
-    });
+      const response = await fetch('http://localhost:4000/cakes', {
+        method: 'POST',
+        body: multipartData
+      });
 
       const result = await response.json();
 
       if (response.ok) {
         // تنظيف الذاكرة من Object URLs بعد الحفظ الناجح
-          imagesData.forEach(img => URL.revokeObjectURL(img.preview));
-        // 4. تحديث الـ State في الفرونت إند بعد التأكد من نجاح الحفظ في الباك
+        imagesData.forEach(img => URL.revokeObjectURL(img.preview));
+        // تحديث الـ State في الفرونت إند بعد التأكد من نجاح الحفظ
         setCakes([...cakes, result]); 
         alert("Product added successfully! ✨");
         navigate('/');
       } else {
-        // هندلة الأخطاء اللي جايه من express-validator
         console.error("Server Error:", result.errors);
         alert("Failed to save product. Check console for details.");
       }
@@ -148,7 +146,6 @@ useEffect(() => {
           </span>
           {t('form_title')}
         </h2>
-       
       </div>
 
       <form className="space-y-8" onSubmit={handleSubmit}>
@@ -158,19 +155,20 @@ useEffect(() => {
           <input type="text" name="productName" placeholder={t('placeholder_name')} className="w-full p-5 bg-gray-50 border-2 border-transparent focus:border-pink-100 rounded-3xl outline-none font-bold text-gray-700 transition-all" />
         </div>
 
-       {/* Description */}
-<div className="space-y-2">
-  <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-2">
-    Description
-  </label>
-  <textarea
-    value={description}
-    onChange={(e) => setDescription(e.target.value)}
-    placeholder="Enter cake description..."
-    rows="4"
-    className="w-full p-5 bg-gray-50 border-2 border-transparent focus:border-pink-100 rounded-3xl outline-none font-bold text-gray-700 transition-all resize-none"
-  />
-</div>
+        {/* Description */}
+        <div className="space-y-2">
+          <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-2">
+            Description
+          </label>
+          <textarea
+            name="description" // إضافة خاصية الـ name كخطوة تأمينية إضافية
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter cake description..."
+            rows="4"
+            className="w-full p-5 bg-gray-50 border-2 border-transparent focus:border-pink-100 rounded-3xl outline-none font-bold text-gray-700 transition-all resize-none"
+          />
+        </div>
 
         {/* Sizes & Prices */}
         <div className="bg-pink-50/20 p-6 rounded-4xl border border-pink-50">
@@ -200,7 +198,7 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* Categories Dropdown (Styled) */}
+        {/* Categories Dropdown */}
         <div className="space-y-2">
           <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-2">{t('category')}</label>
           <div className="relative">

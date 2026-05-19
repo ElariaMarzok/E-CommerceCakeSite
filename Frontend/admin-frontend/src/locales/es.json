@@ -32,7 +32,12 @@
     "dashboard": "Tablero",
     "users": "Usuarios",
     "orders": "Pedidos",
-    "language_label": "Idioma"
+    "grow": "Crecer",
+    "language_label": "Idioma",
+    "signup": "Registrarse",
+    "signin": "Iniciar Sesión",
+    "welcome": "Hola",
+    "signout": "Cerrar Sesión"
   },
 
   
@@ -80,6 +85,44 @@
       "order_done": "Pedido Completado ✓",
       "updating": "Actualizando..."
     }
+  },
+  "currency": "$",
+  "months": {
+    "jan": "Ene", "feb": "Feb", "mar": "Mar", "apr": "Abr", "may": "May", "jun": "Jun",
+    "jul": "Jul", "aug": "Ago", "sep": "Sep", "oct": "Oct", "nov": "Nov", "dec": "Dic"
+  },
+  "grow": {
+    "loading": "Cargando análisis del panel...",
+    "title": "Crecer Negocio",
+    "subtitle": "Realice un seguimiento del rendimiento de su pastelería y del crecimiento mensual.",
+    "year": "Año",
+    "daily": "Ingresos Diarios",
+    "weekly": "Ingresos Semanales (7d)",
+    "yearly": "Total Anual",
+    "monthly_sales": "Porcentaje de Ventas Mensuales",
+    "star_product": "Producto Estrella del Año",
+    "star_product_sub": "El artículo que generó mayores ingresos.",
+    "items_sold": "Artículos Vendidos",
+    "pieces": "Piezas",
+    "total_revenue": "Ingresos Totales",
+    "no_data": "Aún no se han registrado datos de ventas.",
+    "total_unique": "Total de Artículos Únicos Vendidos",
+    "items": "Artículos",
+    "table_title": "Rendimiento de todos los artículos y recuento de pedidos",
+    "th_name": "Nombre del Producto",
+    "th_orders": "Recuento Total de Pedidos",
+    "th_qty": "Cantidades Totales Vendidas",
+    "th_revenue": "Ingresos Totales Obtenidos",
+    "orders": "Pedidos"
+  },
+  "signup": {
+    "title": "Crear una cuenta nueva",
+    "name": "Nombre Completo",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "confirm_password": "Confirmar Contraseña",
+    "submit": "Registrarse",
+    "have_account": "¿Ya tienes una cuenta? Inicia sesión"
   }
 
 }

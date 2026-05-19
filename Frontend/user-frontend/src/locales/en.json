@@ -1,4 +1,6 @@
 {
+  
+
   "navbar": {
     "home": "Home",
     "categories": "Categories",
@@ -33,6 +35,61 @@
     "success_msg": "Order Recorded Successfully!",
     "error_name": "The name must be at least 3 letters",
     "error_phone": "Invalid phone number",
-    "error_address": "Please provide a detailed address"
+    "error_address": "Please provide a detailed address",
+    "items_count": "Items",
+  "cart.backup_phone": "Backup Phone (Optional)",
+"cart.error_backup_phone": "Please enter a valid backup phone number",
+"cart.placeholder_backup_phone": "e.g., +34 612 345 678"
+  },
+"currency": "EGP",
+  "add_to_cart": "Add to Cart",
+  
+  "loading_boxes": "Loading Boxes... 🎁",
+  "boxes_title": "Our Special Boxes",
+  "no_boxes_found": "No special boxes available right now.",
+
+  "loading_bakery": "Loading Bakery Delights... 🥐",
+  "bakery_title": "Our Special Bakery",
+  "no_items_found": "No bakery items found at the moment.",
+
+  "loading_cakes": "Loading Masterpieces... 🍰",
+  "cakes_title": "Our Special Cakes",
+  "no_cakes_found": "No cakes found in this category yet.",
+
+  "loading_catering": "Loading Catering Services... ✨",
+  "catering_title": "Our Special Catering",
+  "no_catering_found": "No catering items available at the moment.",
+
+  "loading_sweets": "Loading Sweets... 🍬",
+  "sweets_title": "Our Special Sweets",
+  "no_sweets_found": "No sweets available at the moment.", 
+
+"hero": {
+  "title_1": "Freshly Baked",
+  "title_2": "With Love"
+}
+
+,
+"categories_section": {
+    "title": "Our Categories",
+    "alt_cake": "cake",
+    "premium_tag": "Premium Quality • Hand Crafted",
+    "in_stock": "In Stock"
+  },
+  "all_items": "All" ,
+  "all_items_title": "Our Full Menu",
+"loading_all_items": "Loading All Delights... ✨",
+  "details": {
+    "loading_details": "Loading Delicious Details... ✨",
+    "back": "Back to previous page",
+    "go_back": "Go Back",
+    "product_not_found": "Product not found.",
+    "category": "Category:",
+    "premium_collection": "Premium Collection",
+    "no_description": "No description available.",
+    "select_size": "Select Size",
+    "total_amount": "Total Amount",
+    "price_not_available": "Price Not Available",
+    "out_of_stock": "OUT OF STOCK"
   }
 }

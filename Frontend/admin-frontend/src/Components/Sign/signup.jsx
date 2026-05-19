@@ -2,17 +2,22 @@ import {useState} from "react";
 import {object , string} from 'yup';
 import {useForm} from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
-import { NavLink } from 'react-router-dom';
-
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-const userSchema = object (
-  {
-    username : string().required().min(5).max(20),
-    email : string().required().email(),
-    password :string().required().min(5).max(10)
-  }
-)
+  const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState('');
+  const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
+  const userSchema = object (
+    {
+      username : string().required().min(5).max(20),
+      email : string().required().email(),
+      password :string().required().min(5).max(50)
+    }
+  )
 
 // ابدأ في استخدام useForm
 //  مع  yupResolver  لربط ال 
@@ -24,11 +29,33 @@ const {errors} = formState;
 
 
 //handle submit 
-function onSubmit(user){
-  console.log(user);
+async function onSubmit(user){
+  setLoading(true);
+  setSubmitError('');
+  setSubmitSuccess('');
+  try {
+    const response = await fetch(`${API_URL}/auth/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user),
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      setSubmitError(data.message || 'Signup failed');
+      return;
+    }
+
+    setSubmitSuccess('Signup successful. Redirecting to sign in...');
+    setTimeout(() => navigate('/signin'), 1200);
+  } catch (error) {
+    console.error(error);
+    setSubmitError('Unable to complete signup.');
+  } finally {
+    setLoading(false);
+  }
 }
 
- 
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -85,12 +112,15 @@ function onSubmit(user){
       
       
       <button 
-        className="w-full block bg-pink-500 text-white font-bold py-4 mt-6 rounded-2xl hover:bg-pink-600 shadow-lg shadow-pink-200 active:scale-95 transition-all" 
+        disabled={loading}
+        className="w-full block bg-pink-500 text-white font-bold py-4 mt-6 rounded-2xl hover:bg-pink-600 shadow-lg shadow-pink-200 active:scale-95 transition-all disabled:cursor-not-allowed disabled:opacity-60" 
         type="submit"
       >
-       SignUp
+       {loading ? 'Signing Up...' : 'SignUp'}
       </button>
     </form>
+    {submitError && <p className="text-red-500 text-sm mt-4">{submitError}</p>}
+    {submitSuccess && <p className="text-green-600 text-sm mt-4">{submitSuccess}</p>}
     
     <p className="text-center text-pink-400 text-sm mt-6 cursor-pointer hover:underline">
       Forgot Password?

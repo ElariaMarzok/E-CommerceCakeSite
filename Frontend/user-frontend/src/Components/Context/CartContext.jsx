@@ -2,71 +2,85 @@ import { createContext, useState, useEffect, useContext } from "react";
 
 export const CartContext = createContext();
 
+// ── Helper داخلي: يضمن إن name دايماً string مش object ──────────
+// شغّال مع الداتا القديمة (string) والجديدة ({ en, es }) معاً
+const resolveText = (field, lang = 'es') => {
+    if (!field) return '';
+    if (typeof field === 'string') return field;
+    return field[lang] || field.es || field.en || '';
+};
+
 export const CartProvider = ({ children }) => {
-    // 1. استرجاع البيانات من localStorage عند البداية
     const [cart, setCart] = useState(() => {
         const savedCart = localStorage.getItem("cakeCart");
         return savedCart ? JSON.parse(savedCart) : [];
     });
 
-    // 2. تحديث localStorage تلقائياً عند أي تغيير في السلة
+    // ── لغة المستخدم الحالية من localStorage ───────────────────
+    // نفس المكان اللي بتحفظ فيه اللغة في LanguageContext/i18n
+    const lang = localStorage.getItem("i18nextLng") || 'es';
+
     useEffect(() => {
         localStorage.setItem("cakeCart", JSON.stringify(cart));
     }, [cart]);
 
-    // حساب إجمالي الكمية للـ Navbar
     const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
 
-    // حساب إجمالي السعر + 80 رسوم توصيل
     const totalPrice = cart.reduce((acc, item) => {
         const price = Number(item.price) || 0;
-        const qty = Number(item.quantity) || 0;
+        const qty   = Number(item.quantity) || 0;
         return acc + (price * qty);
-    }, 0) + (cart.length > 0 ? 80 : 0); // نضيف الـ 80 فقط إذا كانت السلة غير فارغة
+    }, 0) + (cart.length > 0 ? 80 : 0);
 
-    // إضافة منتج للسلة
+    
     const addToCart = (product) => {
+        //  نضمن إن name يتخزن كـ string دايماً في localStorage
+        // حتى لو الصفحة اللي بعتت product.name نسيت تعمل getText
+        const safeProduct = {
+            ...product,
+            name: resolveText(product.name, lang),
+            quantity: Number(product.quantity) || 1,
+        };
+
         setCart((prev) => {
-            const isExist = prev.find(item => item.id === product.id);
+            const isExist = prev.find(item => item.id === safeProduct.id);
             if (isExist) {
                 return prev.map(item =>
-                    item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+                    item.id === safeProduct.id
+                        ? { ...item, quantity: item.quantity + safeProduct.quantity }
+                        : item
                 );
             }
-            return [...prev, { ...product, quantity: 1 }];
+            return [...prev, safeProduct];
         });
     };
 
-    // تحديث الكمية داخل صفحة السلة
+    
     const updateQuantity = (id, amount) => {
         setCart((prev) =>
             prev.map((item) =>
-                item.id === id 
-                    ? { ...item, quantity: Math.max(1, item.quantity + amount) } 
+                item.id === id
+                    ? { ...item, quantity: Math.max(1, item.quantity + amount) }
                     : item
             )
         );
     };
 
-    // حذف منتج من السلة
     const removeFromCart = (id) => {
         setCart((prev) => prev.filter((item) => item.id !== id));
     };
 
-    // مسح السلة بالكامل بعد إتمام الطلب
-    const clearCart = () => {
-        setCart([]);
-    };
+    const clearCart = () => setCart([]);
 
     return (
-        <CartContext.Provider value={{ 
-            cart, 
-            updateQuantity, 
-            addToCart, 
-            removeFromCart, 
-            totalQuantity, 
+        <CartContext.Provider value={{
+            cart,
+            updateQuantity,
+            addToCart,
+            removeFromCart,
+            totalQuantity,
             totalPrice,
-            clearCart 
+            clearCart
         }}>
             {children}
         </CartContext.Provider>
