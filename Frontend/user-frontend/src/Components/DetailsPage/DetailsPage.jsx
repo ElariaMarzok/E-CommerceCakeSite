@@ -64,13 +64,13 @@ export default function DetailsPage() {
     });
   };
 
-  // 3. دالة تحريك السلايدر الخاص بالصور المصغرة (أفقي للموبايل وعمودي للكمبيوتر)
+  //  دالة تحريك السلايدر الخاص بالصور المصغرة
   const scrollThumbs = (direction) => {
     if (thumbSliderRef.current) {
       const scrollAmount = 120; // المسافة بالبكسل مع كل ضغطة
       
       if (window.innerWidth >= 1024) {
-        // على الكمبيوتر (التحريك لأعلى وأسفل top)
+        // (التحريك لأعلى وأسفل top)
         thumbSliderRef.current.scrollBy({
           top: direction === 'prev' ? -scrollAmount : scrollAmount,
           behavior: 'smooth'

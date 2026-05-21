@@ -1,5 +1,4 @@
 {
-
   "navbar": {
     "home": "Inicio",
     "categories": "Categorías",
@@ -10,13 +9,14 @@
     "sweets": "Dulces",
     "language": "Idioma"
   },
+
   "footer": {
     "about_title": "Sobre Nosotros",
     "about_text": "En el Servicio de Catering de Mary's Cake deseamos que esta temporada esté llena de dulzura, amor y momentos especiales. Gracias por permitirnos ser parte de sus celebraciones. ¡Felices fiestas y un próspero Año Nuevo!",
     "contact_title": "Contáctenos",
     "whatsapp": "WhatsApp"
-  
 },
+
 "cart": {
     "title": "Tu Carrito",
     "empty": "Tu carrito está vacío 🍰",
@@ -36,32 +36,33 @@
     "error_name": "El nombre debe tener al menos 3 letras",
     "items_count": "Artículos",
    "cart.backup_phone": "Teléfono de respaldo (Opcional)",
-"cart.error_backup_phone": "Por favor, introduce un número de teléfono válido",
-"cart.placeholder_backup_phone": "Ej. +34 612 345 678"
+   "cart.error_backup_phone": "Por favor, introduce un número de teléfono válido",
+   "cart.placeholder_backup_phone": "Ej. +34 612 345 678"
   },
 
     "bakery_title": "Nuestra Panadería Especial",
-    "add_to_cart": "Añadir al carrito",
+     "add_to_cart": "Añadir al carrito",
      "currency": "EGP",
      "boxes_title": "Nuestras Cajas Especiales",
-  "loading_boxes": "Cargando Cajas... 🎁",
-  "no_boxes_found": "No hay cajas especiales disponibles en este momento.",
-  "cakes_title": "Nuestros Pasteles Especiales",
-  "loading_cakes": "Cargando Obras Maestras... 🍰",
-  "no_cakes_found": "No se encontraron pasteles en esta categoría todavía.",
-  "catering_title": "Nuestro Catering Especial",
-  "loading_catering": "Cargando Servicios de Catering... ✨",
-  "no_catering_found": "No hay servicios de catering disponibles por el momento.",
+     "loading_boxes": "Cargando Cajas... 🎁",
+     "no_boxes_found": "No hay cajas especiales disponibles en este momento.",
+     "cakes_title": "Nuestros Pasteles Especiales",
+     "loading_cakes": "Cargando Obras Maestras... 🍰",
+     "no_cakes_found": "No se encontraron pasteles en esta categoría todavía.",
+     "catering_title": "Nuestro Catering Especial",
+     "loading_catering": "Cargando Servicios de Catering... ✨",
+     "no_catering_found": "No hay servicios de catering disponibles por el momento.",
 
-  "loading_sweets": "Cargando Dulces... 🍬",
-  "sweets_title": "Nuestros Dulces Especiales",
-  "no_sweets_found": "No hay dulces especiales disponibles en este momento."
+     "loading_sweets": "Cargando Dulces... 🍬",
+     "sweets_title": "Nuestros Dulces Especiales",
+     "no_sweets_found": "No hay dulces especiales disponibles en este momento."
   ,
 
   "hero": {
   "title_1": "Horneado Fresco",
   "title_2": "Con Amor"
 }, 
+
 "categories_section": {
     "title": "Nuestras Categorías",
     "alt_cake": "pastel",
@@ -69,9 +70,12 @@
     "in_stock": "En Stock"
   }
   ,
+  
   "all_items": "Todos" ,
   "all_items_title": "Nuestro Menú Completo",
-"loading_all_items": "Cargando Todas las Delicias... ✨",
+  "loading_all_items": "Cargando Todas las Delicias... ✨",
+
+
   "details": {
     "loading_details": "Cargando detalles deliciosos... ✨",
     "back": "Volver a la página anterior",
