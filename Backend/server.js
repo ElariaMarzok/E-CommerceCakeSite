@@ -36,10 +36,8 @@ app.use('/auth', authRoutes);
 // Export app for serverless deployment
 module.exports = app;
 
-// Local server listen when run directly
-if (require.main === module) {
+
   const PORT = process.env.PORT || 4000;
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
-}
