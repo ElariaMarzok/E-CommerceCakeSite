@@ -7,7 +7,7 @@ const { v4: uuidv4 } = require('uuid'); // ⇨ 'ab16e731-6cee-424d-81a0-5929e9bd
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads'); // تأكد من أن هذا المسار موجود في مشروعك
+    cb(null, 'public/uploads'); // تأكد من أن هذا المسار موجود في مشروعك
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + uuidv4()+ '.' + file.originalname.split('.').pop()); // اسم فريد لكل صورة مع الحفاظ على الامتداد

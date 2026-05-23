@@ -130,6 +130,8 @@ const addCake = async (req, res) => {
 // ─────────────────────────────────────────────────────────────
 const updateCake = async (req, res) => {
     try {
+
+
         const imageUrls = req.files?.map(file => `/uploads/${file.filename}`) || [];
 
         let existingImages = req.body.existingImages;
