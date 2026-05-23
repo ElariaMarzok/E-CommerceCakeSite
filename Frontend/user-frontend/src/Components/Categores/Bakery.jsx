@@ -27,6 +27,7 @@ export default function Bakery() {
         // بنبعت ?lang= عشان الباك إند يرجع النص المترجم جاهز
         const response = await fetch(`${API_URL}/cakes?lang=${i18n.language}`); 
         const data     = await response.json();
+        console.log(data);
         
         const filteredBakery = data.filter(item => item.category === 'bakery');
         setBakeryItems(filteredBakery);

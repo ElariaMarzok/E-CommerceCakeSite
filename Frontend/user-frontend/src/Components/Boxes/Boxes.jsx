@@ -10,7 +10,7 @@ export default function Boxes() {
 
   const { addToCart }  = useCart();
   const { t, i18n }    = useTranslation();       // عشان نعرف اللغة الحالية
-  const API_URL        = import.meta.env.VITE_API_URL;
+  const VITE_API_URL        = import.meta.env.VITE_API_URL;
 
   // ── Helper: يستخرج النص الصح حسب اللغة ──────────────────────
   // يشتغل مع الداتا القديمة (string) والجديدة (object) معاً
@@ -25,7 +25,7 @@ export default function Boxes() {
     const fetchBoxes = async () => {
       try {
         // بنبعت ?lang= عشان الباك إند يرجع النص المترجم جاهز
-        const response = await fetch(`${API_URL}/cakes?lang=${i18n.language}`);
+        const response = await fetch(`${VITE_API_URL}/cakes?lang=${i18n.language}`);
         const data     = await response.json();
         
         const filteredBoxes = data.filter(item => item.category === 'boxes');
@@ -46,7 +46,7 @@ export default function Boxes() {
       id:    box._id,
       name:  getText(box.name),    // string دايماً مش object
       price: box.prices?.[0]?.price || 0,
-      img:   box.images?.[0] ? `${API_URL}${box.images[0]}` : "" // تأمين دمج رابط الباك إند مع مسار الصورة
+      img:   box.images?.[0] ? `${VITE_API_URL}${box.images[0]}` : "" // تأمين دمج رابط الباك إند مع مسار الصورة
     });
   };
 
@@ -93,7 +93,7 @@ export default function Boxes() {
                 className="relative h-72 overflow-hidden block"
               >
                 <img
-                  src={`${API_URL}${box.images?.[0] || ''}`}
+                  src={`${VITE_API_URL}${box.images?.[0] || ''}`}
                   alt={getText(box.name)}         // string مش object
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
