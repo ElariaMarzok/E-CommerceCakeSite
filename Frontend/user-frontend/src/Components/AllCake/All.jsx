@@ -24,10 +24,22 @@ export default function AllProducts() {
       try {
         // نطلب كل المنتجات من الباك إند مع تمرير اللغة الحالية
         const response = await fetch(`${API_URL}/cakes?lang=${i18n.language}`); 
-        const data = await response.json();
+        // const data = await response.json();
         
-        // جلب البيانات بالكامل بدون عمل فلترة (filter) على كاتيجوري معين
-        setItemsFromDb(data);
+        // // جلب البيانات بالكامل بدون عمل فلترة (filter) على كاتيجوري معين
+        // setItemsFromDb(data);
+
+        const data = await response.json();
+
+console.log("AllProducts Response:", data);
+console.log("Is Array:", Array.isArray(data));
+
+if (Array.isArray(data)) {
+  setItemsFromDb(data);
+} else {
+  console.error("Expected array but got:", data);
+  setItemsFromDb([]);
+}
       } catch (error) {
         console.error("Error fetching all items:", error);
       } finally {

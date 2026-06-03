@@ -26,10 +26,25 @@ export default function Boxes() {
       try {
         // بنبعت ?lang= عشان الباك إند يرجع النص المترجم جاهز
         const response = await fetch(`${VITE_API_URL}/cakes?lang=${i18n.language}`);
-        const data     = await response.json();
+        // const data     = await response.json();
         
-        const filteredBoxes = data.filter(item => item.category === 'boxes');
-        setBoxItems(filteredBoxes);
+        // const filteredBoxes = data.filter(item => item.category === 'boxes');
+        // setBoxItems(filteredBoxes);
+        const data = await response.json();
+
+console.log("Response:", data);
+console.log("Is Array:", Array.isArray(data));
+
+if (Array.isArray(data)) {
+  const filteredBoxes = data.filter(
+    item => item.category === 'boxes'
+  );
+
+  setBoxItems(filteredBoxes);
+} else {
+  console.error("Expected array but got:", data);
+  setBoxItems([]);
+}
       } catch (error) {
         console.error("Error fetching boxes:", error);
       } finally {
