@@ -57,7 +57,7 @@ export default function Signin() {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-pink-50">
-      <div className="bg-white p-10 rounded-3xl shadow-xl w-full max-w-lg border border-pink-100">
+      <div className="bg-white m-8 p-10 rounded-3xl shadow-xl w-full max-w-lg border border-pink-100">
         <h2 className="text-3xl font-black text-pink-600 text-center mb-8">Admin Access</h2>
         
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>

@@ -19,7 +19,7 @@ export default function Signup() {
     }
   )
 
-// ابدأ في استخدام useForm
+// useForm
 //  مع  yupResolver  لربط ال 
 // schema بال 
 // form 
@@ -60,8 +60,8 @@ async function onSubmit(user){
 
   return (
     <>
-  <div className="flex justify-center bg-pink-50">
-  <div className="bg-white m-30  p-10 rounded-3xl shadow-xl w-full max-w-lg border border-pink-100">
+  <div className="flex justify-center  items-center min-h-screen bg-pink-50">
+  <div className="bg-white m-8 p-10 rounded-3xl shadow-xl w-full max-w-md border border-pink-100">
     <h2 className="text-3xl font-bold text-pink-600 text-center mb-8">Cakes SignUp</h2>
     
     <form

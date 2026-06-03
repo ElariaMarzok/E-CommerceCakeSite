@@ -91,10 +91,10 @@ const Navbar = () => {
               ) : (
                 // 🔒 إذا كان غير مسجل دخول في الـ PC: يعرض أزرار الدخول والتسجيل العادية
                 <div className="flex items-center gap-3">
-                  {/* <Link to="/signup" className="text-pink-500 hover:text-pink-600 font-medium px-2 py-1">
+                  <Link to="/signup" className="text-pink-500 hover:bg-pink-500 hover:rounded-xl hover:p-2 transition-all hover:text-white font-medium ">
                     {t('navbar.signup')}
-                  </Link> */}
-                  <Link to="/signin" className="bg-pink-500 text-white font-bold px-4 py-2 rounded-xl text-sm hover:bg-pink-600 transition-all shadow-md shadow-pink-100">
+                  </Link>
+                  <Link to="/signin" className="text-pink-500 hover:bg-pink-500 hover:rounded-xl hover:p-2 transition-all hover:text-white font-medium">
                     {t('navbar.signin')}
                   </Link>
                 </div>
