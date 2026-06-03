@@ -29,6 +29,7 @@ export default function Dashboard() {
         // بنبعت اللغة عشان الباك إند يرجع name كـ string جاهز
         const response = await fetch(`${BASE_URL}/cakes?lang=${i18n.language}`);
         const data = await response.json();
+        
         if (response.ok) {
           setCakes(data);
         }
