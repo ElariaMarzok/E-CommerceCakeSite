@@ -113,10 +113,20 @@ export default function AddProduct() {
         multipartData.append('images', image.file);
       });
 
-      const response = await fetch('http://localhost:4000/cakes', {
-        method: 'POST',
-        body: multipartData
-      });
+     // تحديد الـ API URL بناءً على البيئة (تطوير أو إنتاج)
+  const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:4000' 
+    : window.location.origin;
+ // إرسال البيانات إلى السيرفر باستخدام الـ API URL الديناميكي
+  const response = await fetch(`${API_URL}/cakes`, {
+    method: 'POST',
+    body: multipartData
+  });
+
+      // const response = await fetch('http://localhost:4000/cakes', {
+      //   method: 'POST',
+      //   body: multipartData
+      // });
 
       const result = await response.json();
 

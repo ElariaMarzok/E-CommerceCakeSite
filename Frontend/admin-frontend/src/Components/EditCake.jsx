@@ -33,7 +33,10 @@ export default function EditCake() {
   const [images, setImages]                         = useState([]);
   const [selectedSizes, setSelectedSizes]           = useState({});
 
-  const BACKEND_URL   = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+  
+  const BACKEND_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:4000' 
+  : window.location.origin;
   const categories    = ['bakery', 'cakes', 'catering', 'sweets', 'boxes'];
   const availableSizes = ['Small', 'Medium', 'Large'];
 
