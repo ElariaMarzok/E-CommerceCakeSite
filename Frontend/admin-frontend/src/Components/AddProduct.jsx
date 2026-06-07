@@ -114,9 +114,9 @@ export default function AddProduct() {
       });
 
      // تحديد الـ API URL بناءً على البيئة (تطوير أو إنتاج)
-  const API_URL = window.location.hostname === 'localhost' 
-    ? 'http://localhost:4000' 
-    : window.location.origin;
+  const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:4000' 
+  : 'https://e-commerce-cake-site-dxkh.vercel.app';
  // إرسال البيانات إلى السيرفر باستخدام الـ API URL الديناميكي
   const response = await fetch(`${API_URL}/cakes`, {
     method: 'POST',

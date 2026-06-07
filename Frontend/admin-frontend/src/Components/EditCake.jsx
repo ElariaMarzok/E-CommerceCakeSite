@@ -34,9 +34,10 @@ export default function EditCake() {
   const [selectedSizes, setSelectedSizes]           = useState({});
 
   
-  const BACKEND_URL = window.location.hostname === 'localhost' 
+  const BACKEND_URL =window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? 'http://localhost:4000' 
-  : window.location.origin;
+  : 'https://e-commerce-cake-site-dxkh.vercel.app';
+
   const categories    = ['bakery', 'cakes', 'catering', 'sweets', 'boxes'];
   const availableSizes = ['Small', 'Medium', 'Large'];
 
