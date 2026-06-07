@@ -46,7 +46,7 @@ export default function Cakes() {
       id:    cake._id,
       name:  getText(cake.name),    // string دايماً مش object
       price: cake.prices?.[0]?.price || 0,
-      img:   cake.images?.[0] ? `${API_URL}${cake.images[0]}` : "" // تأمين دمج رابط الباك إند مع مسار الصورة
+      img:   cake.images?.[0] ? (cake.images[0].startsWith('http') ? cake.images[0] : `${API_URL}${cake.images[0]}`) : ""
     });
   };
 
@@ -93,7 +93,11 @@ export default function Cakes() {
                 className="relative h-72 overflow-hidden block"
               >
                 <img 
-                  src={cake.images && cake.images[0] ? `${API_URL}${cake.images[0]}` : 'https://via.placeholder.com/500'} 
+                  src={cake.images && cake.images[0] 
+                    ? cake.images[0].startsWith('http') 
+                      ? cake.images[0]
+                      : `${API_URL}${cake.images[0]}` 
+                    : 'https://via.placeholder.com/500'} 
                   loading='lazy'
                   alt={getText(cake.name)} // string مش object
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"

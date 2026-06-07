@@ -13,7 +13,6 @@ export default function Bakery() {
   const API_URL        = import.meta.env.VITE_API_URL;
 
   // ── Helper: يستخرج النص الصح حسب اللغة ──────────────────────
-  // يشتغل مع الداتا القديمة (string) والجديدة (object) معاً
   const getText = (field) => {
     if (!field) return '';
     if (typeof field === 'string') return field;          // داتا قديمة
@@ -24,24 +23,20 @@ export default function Bakery() {
   useEffect(() => {
     const fetchBakery = async () => {
       try {
-        // بنبعت ?lang= عشان الباك إند يرجع النص المترجم جاهز
         const response = await fetch(`${API_URL}/cakes?lang=${i18n.language}`); 
-        // const data     = await response.json();
-        // console.log(data);
-        
-        // const filteredBakery = data.filter(item => item.category === 'bakery');
-        // setBakeryItems(filteredBakery);
         const data = await response.json();
 
-console.log("ba Response:", data);
-console.log("Is Array:", Array.isArray(data));
+        console.log("Bakery Raw Response:", data);
 
-if (Array.isArray(data)) {
-  setItemsFromDb(data);
-} else {
-  console.error("Expected array but got:", data);
-  setItemsFromDb([]);
-}
+        if (Array.isArray(data)) {
+          // 1. فلترة البيانات عشان نجيب بس اللي كاتيجوري بتاعه 'bakery'
+          const filteredBakery = data.filter(item => item.category === 'bakery');
+          // 2. تحديث  State بالبيانات المفلترة
+          setBakeryItems(filteredBakery);
+        } else {
+          console.error("Expected array but got:", data);
+          setBakeryItems([]);
+        }
       } catch (error) {
         console.error("Error fetching bakery items:", error);
       } finally {
@@ -58,7 +53,7 @@ if (Array.isArray(data)) {
       id:    item._id,
       name:  getText(item.name),    // string دايماً مش object
       price: item.prices?.[0]?.price || 0,
-      img:   item.images?.[0] ? `${API_URL}${item.images[0]}` : "" // تأمين دمج رابط الباك إند مع مسار الصورة
+      img:   item.images?.[0] ? (item.images[0].startsWith('http') ? item.images[0] : `${API_URL}${item.images[0]}`) : ""
     });
   };
 
@@ -105,20 +100,21 @@ if (Array.isArray(data)) {
                 className="relative h-72 overflow-hidden block"
               >
                 <img 
-                  src={`${API_URL}${item.images?.[0] || ''}`} 
-                  alt={getText(item.name)} // string مش object
+                  src={item.images && item.images[0] 
+                    ? item.images[0].startsWith('http') 
+                      ? item.images[0]
+                      : `${API_URL}${item.images[0]}` 
+                    : 'https://via.placeholder.com/500'} 
+                  alt={getText(item.name)} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </Link>
 
               {/* Content Section */}
               <div className="p-6 text-center">
-                {/* getText بدل item.name مباشرة */}
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
                   {getText(item.name)}
                 </h3>
-                
-              
 
                 <p className="text-pink-600 font-bold text-lg mb-4">
                   {item.prices?.[0]?.price || 0} {t('currency', 'EGP')}

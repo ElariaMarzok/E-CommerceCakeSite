@@ -24,7 +24,8 @@ export default function AllProducts() {
       try {
         // نطلب كل المنتجات من الباك إند مع تمرير اللغة الحالية
         const response = await fetch(`${API_URL}/cakes?lang=${i18n.language}`); 
-        // const data = await response.json();
+        console.log("Fetch Response Status:", response);
+        // const data = await response.json(response );
         
         // // جلب البيانات بالكامل بدون عمل فلترة (filter) على كاتيجوري معين
         // setItemsFromDb(data);
@@ -55,7 +56,7 @@ if (Array.isArray(data)) {
       id:    item._id,
       name:  getText(item.name),
       price: item.prices?.[0]?.price || 0,
-      img:   item.images?.[0] ? `${API_URL}${item.images[0]}` : ""
+      img:   item.images?.[0] ? (item.images[0].startsWith('http') ? item.images[0] : `${API_URL}${item.images[0]}`) : ""
     });
   };
 
@@ -102,7 +103,11 @@ if (Array.isArray(data)) {
                 className="relative h-72 overflow-hidden block"
               >
                 <img 
-                  src={item.images && item.images[0] ? `${API_URL}${item.images[0]}` : 'https://via.placeholder.com/500'} 
+                  src={item.images && item.images[0] 
+                    ? item.images[0].startsWith('http') 
+                    ? item.images[0]
+                    :`${API_URL}${item.images[0]}` 
+                    : 'https://via.placeholder.com/500'} 
                   loading='lazy'
                   alt={getText(item.name)}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"

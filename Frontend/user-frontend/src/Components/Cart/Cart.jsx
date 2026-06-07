@@ -173,7 +173,17 @@ export default function Cart() {
               cart.map((item) => (
                 <div key={item.id} className="bg-white p-6 rounded-2xl shadow-sm border border-pink-100 flex items-center justify-between flex-wrap gap-4">
                   <div className="flex items-center gap-4">
-                    <img src={item.img || 'https://via.placeholder.com/120'} alt={item.name} className="w-20 h-20 rounded-lg object-cover bg-pink-50" />
+                    <img 
+              src={
+                 item.img?.startsWith('http') 
+                 ? item.img 
+                 : item.img 
+                 ? `${API_URL}${item.img}` 
+                : 'https://via.placeholder.com/120'
+               } 
+              alt={item.name} 
+              className="w-20 h-20 rounded-lg object-cover bg-pink-50" 
+           />
                     <div>
                       <h3 className="font-semibold text-gray-700">{item.name}</h3>
                       <p className="text-pink-600 font-bold">${item.price}</p>

@@ -41,7 +41,7 @@ export default function Dashboard() {
   }, [i18n.language]); //  يعيد الجلب لما اللغة تتغير
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this sweet masterpiece? 🎂🗑️")) {
+    if (window.confirm("Are you sure you want to delete this sweet masterpiece?🗑️")) {
       try {
         const response = await fetch(`${BASE_URL}/cakes/${id}`, { method: 'DELETE' });
         if (response.ok) {
@@ -113,12 +113,15 @@ export default function Dashboard() {
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-xl overflow-hidden border border-gray-100 shadow-sm shrink-0">
                         <img
-                          src={cake.images?.length > 0 ? BASE_URL + cake.images[0] : null}
+                          src={cake.images?.length > 0 
+                            ? cake.images[0].startsWith('http') 
+                            ?cake.images[0] //لو الرابط قادم من كلويديناري يعرضه مباشرة بدون BASE_URL
+                            :BASE_URL + cake.images[0] // لو الرابط نسبي يعني جاي من الباك إند القديم، نضيف BASE_URL
+                            : null}
                           alt={getName(cake.name)}   // ✅
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      {/*  getName بدل cake.name مباشرة */}
                       <span className="font-bold text-gray-700">{getName(cake.name)}</span>
                     </div>
                   </td>

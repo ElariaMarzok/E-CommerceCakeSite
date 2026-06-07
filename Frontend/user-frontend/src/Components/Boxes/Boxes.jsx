@@ -61,7 +61,7 @@ if (Array.isArray(data)) {
       id:    box._id,
       name:  getText(box.name),    // string دايماً مش object
       price: box.prices?.[0]?.price || 0,
-      img:   box.images?.[0] ? `${VITE_API_URL}${box.images[0]}` : "" // تأمين دمج رابط الباك إند مع مسار الصورة
+      img:   box.images?.[0] ? (box.images[0].startsWith('http') ? box.images[0] : `${VITE_API_URL}${box.images[0]}`) : ""
     });
   };
 
@@ -108,8 +108,12 @@ if (Array.isArray(data)) {
                 className="relative h-72 overflow-hidden block"
               >
                 <img
-                  src={`${VITE_API_URL}${box.images?.[0] || ''}`}
-                  alt={getText(box.name)}         // string مش object
+                  src={box.images && box.images[0] 
+                    ? box.images[0].startsWith('http') 
+                      ? box.images[0]
+                      : `${VITE_API_URL}${box.images[0]}` 
+                    : 'https://via.placeholder.com/500'} 
+                  alt={getText(box.name)}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </Link>

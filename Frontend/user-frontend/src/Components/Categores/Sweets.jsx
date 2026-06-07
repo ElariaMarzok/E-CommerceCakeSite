@@ -46,7 +46,7 @@ export default function Sweets() {
       id:    item._id,
       name:  getText(item.name),    // string دايماً مش object
       price: item.prices?.[0]?.price || 0,
-      img:   item.images?.[0] ? `${API_URL}${item.images[0]}` : "" // تأمين دمج رابط الباك إند مع مسار الصورة
+      img:   item.images?.[0] ? (item.images[0].startsWith('http') ? item.images[0] : `${API_URL}${item.images[0]}`) : ""
     });
   };
 
@@ -93,7 +93,11 @@ export default function Sweets() {
                 className="relative h-72 overflow-hidden block"
               >
                 <img 
-                  src={`${API_URL}${sweet.images?.[0] || ''}`}
+                  src={sweet.images && sweet.images[0] 
+                    ? sweet.images[0].startsWith('http') 
+                      ? sweet.images[0]
+                      : `${API_URL}${sweet.images[0]}` 
+                    : 'https://via.placeholder.com/500'} 
                   alt={getText(sweet.name)} // string مش object
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />

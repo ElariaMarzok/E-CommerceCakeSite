@@ -1,3 +1,5 @@
+require('dotenv').config(); // 👈 يجب أن يكون السطر رقم 1 في الملف
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const express = require('express');
 const app = express();
@@ -8,12 +10,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 
-
-
-
-require('dotenv').config();
-
-
 // Connect to MongoDB
 const url = process.env.DATABASE_URL || 'mongodb://localhost:27017/cakeSite';
 mongoose.connect(url)
@@ -21,24 +17,28 @@ mongoose.connect(url)
   .catch(err => console.log("Error connecting:", err));
 
 // Middleware
-// edit the limit to handle large base64 images
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-
-app.use(express.static(path.join(__dirname, "public"))); // to serve static files like images
-// app.use('/uploads', express.static('uploads')); // serve uploaded files
-
+app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use('/cakes', cakeRoutes);
 app.use('/orders', orderRoutes);
 app.use('/auth', authRoutes);
 
-// Export app for serverless deployment
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('Global error handler:', err);
+  if (res.headersSent) return next(err);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Internal Server Error',
+  });
+});
+
 module.exports = app;
 
-// Local server listen when run directly
 if (require.main === module) {
   const PORT = process.env.PORT || 4000;
   app.listen(PORT, () => {
