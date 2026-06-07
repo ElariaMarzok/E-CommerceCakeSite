@@ -2,12 +2,14 @@ import { createContext, useState, useEffect, useContext } from "react";
 
 export const CartContext = createContext();
 
-// ── Helper داخلي: يضمن إن name دايماً string مش object ──────────
-// شغّال مع الداتا القديمة (string) والجديدة ({ en, es }) معاً
+// ── Helper داخلي محسّن للتعامل مع النصوص والترجمات ──────────────────
 const resolveText = (field, lang = 'es') => {
     if (!field) return '';
     if (typeof field === 'string') return field;
-    return field[lang] || field.es || field.en || '';
+    if (typeof field === 'object') {
+        return field[lang] || field.es || field.en || '';
+    }
+    return '';
 };
 
 export const CartProvider = ({ children }) => {
@@ -16,8 +18,7 @@ export const CartProvider = ({ children }) => {
         return savedCart ? JSON.parse(savedCart) : [];
     });
 
-    // ── لغة المستخدم الحالية من localStorage ───────────────────
-    // نفس المكان اللي بتحفظ فيه اللغة في LanguageContext/i18n
+    // جلب لغة المستخدم الحالية ديناميكياً
     const lang = localStorage.getItem("i18nextLng") || 'es';
 
     useEffect(() => {
@@ -32,17 +33,18 @@ export const CartProvider = ({ children }) => {
         return acc + (price * qty);
     }, 0) + (cart.length > 0 ? 80 : 0);
 
-    
     const addToCart = (product) => {
-        //  نضمن إن name يتخزن كـ string دايماً في localStorage
-        // حتى لو الصفحة اللي بعتت product.name نسيت تعمل getText
+        // تأمين البيانات القادمة لضمان صحة الأنواع (Types) داخل السلة
         const safeProduct = {
             ...product,
-            name: resolveText(product.name, lang),
+            // لو الاسم قادم كـ Object نترجمه، ولو قادم كـ String جاهز نتركه كما هو
+            name: typeof product.name === 'object' ? resolveText(product.name, lang) : product.name,
             quantity: Number(product.quantity) || 1,
+            price: Number(product.price) || 0
         };
 
         setCart((prev) => {
+            // البحث بالـ ID الفريد (الذي يحتوي على الحجم الآن)
             const isExist = prev.find(item => item.id === safeProduct.id);
             if (isExist) {
                 return prev.map(item =>
@@ -55,7 +57,6 @@ export const CartProvider = ({ children }) => {
         });
     };
 
-    
     const updateQuantity = (id, amount) => {
         setCart((prev) =>
             prev.map((item) =>

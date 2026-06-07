@@ -15,7 +15,7 @@ export default function Cart() {
     return acc + price * quantity;
   }, 0);
 
-  // 1. إنشاء State لتخزين بيانات المستخدم (مع إضافة الرقم الاحتياطي)
+  // 1. إنشاء State لتخزين بيانات المستخدم
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -49,7 +49,7 @@ export default function Cart() {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // ترجع true لو مفيش أخطاء
+    return Object.keys(newErrors).length === 0;
   };
 
   // دالة لتحديث الـ State عند الكتابة
@@ -63,7 +63,6 @@ export default function Cart() {
 
     setErrors((prevErrors) => {
       const updatedErrors = { ...prevErrors };
-
       const flexiblePhoneRegex = /^[0-9\-\(\)\/\+\s]{7,15}$/;
       let fieldError = '';
 
@@ -113,7 +112,7 @@ export default function Cart() {
     
     // التأكد من صحة البيانات
     if (!validateForm()) {
-      return; // توقف هنا لو فيه أخطاء
+      return;
     }
 
     const orderData = {
@@ -124,13 +123,16 @@ export default function Cart() {
         address: formData.address,
         notes: formData.notes || ""
       },
+      //  تعديل الماب لتمرير الـ category وصورة المنتج بشكل آمن وسليم
       items: cart.map(item => ({
+        product: item._id || item.id?.split('-')[0], 
         name: item.name,
         quantity: Number(item.quantity),
         price: Number(item.price),
-        size: item.size || "Standard"
+        size: item.size || "Standard",
+        img: item.img || item.image || ""// تمرير مسار الصورة لحل مشكلة عدم قراءة الصور
       })),
-      totalAmount: Number(itemSubtotal)
+      totalAmount: Number(itemSubtotal) + 80 // شاملة مصاريف التوصيل المحددة بالأسفل ليتطابق المجموع
     };
 
     try {
@@ -174,19 +176,26 @@ export default function Cart() {
                 <div key={item.id} className="bg-white p-6 rounded-2xl shadow-sm border border-pink-100 flex items-center justify-between flex-wrap gap-4">
                   <div className="flex items-center gap-4">
                     <img 
-              src={
-                 item.img?.startsWith('http') 
-                 ? item.img 
-                 : item.img 
-                 ? `${API_URL}${item.img}` 
-                : 'https://via.placeholder.com/120'
-               } 
-              alt={item.name} 
-              className="w-20 h-20 rounded-lg object-cover bg-pink-50" 
-           />
+                      src={
+                        item.img?.startsWith('http') 
+                        ? item.img 
+                        : item.img 
+                        ? `${API_URL}${item.img}` 
+                        : 'https://via.placeholder.com/120'
+                      } 
+                      alt={item.name} 
+                      className="w-20 h-20 rounded-lg object-cover bg-pink-50" 
+                    />
                     <div>
                       <h3 className="font-semibold text-gray-700">{item.name}</h3>
-                      <p className="text-pink-600 font-bold">${item.price}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <p className="text-pink-600 font-bold">${item.price}</p>
+                        {item.category && (
+                          <span className="text-[10px] bg-pink-50 text-pink-500 font-bold px-2 py-0.5 rounded-md border border-pink-100">
+                            {item.category}
+                          </span>
+                        )}
+                      </div>
                       
                       {/* Quantity Controls */}
                       <div className="flex items-center gap-3 mt-3 bg-pink-50/50 w-fit p-1 rounded-xl border border-pink-100">
@@ -263,27 +272,27 @@ export default function Cart() {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  placeholder={t('cart.error_phone', '+34 612 345 678...')} 
+                  placeholder="+34 612 345 678..." 
                   className="w-full px-4 py-3 rounded-xl border border-gray-100 outline-none bg-gray-50 focus:ring-2 focus:ring-pink-100 transition-all" 
                 />
                 {errors.phone && <p className="text-red-500 text-xs mt-1 font-bold">{errors.phone}</p>}
               </div>
 
-              {/* Backup Phone Input ── الحقل الجديد */}
+              {/* Backup Phone Input */}
               <div className="space-y-1">
-  <label className="text-sm font-medium text-gray-600 flex items-center gap-2">
-    <Phone size={16} className="text-pink-300" /> {t('cart.cart.backup_phone')}
-  </label>
-  <input 
-    type="text" 
-    name="backupPhone"
-    value={formData.backupPhone}
-    onChange={handleChange}
-    placeholder={t('cart.placeholder_backup_phone', '+34 612 345 678...')} 
-    className="w-full px-4 py-3 rounded-xl border border-gray-100 outline-none bg-gray-50 focus:ring-2 focus:ring-pink-100 transition-all" 
-  />
-  {errors.backupPhone && <p className="text-red-500 text-xs mt-1 font-bold">{errors.backupPhone}</p>}
-</div> 
+                <label className="text-sm font-medium text-gray-600 flex items-center gap-2">
+                  <Phone size={16} className="text-pink-300" /> {t('cart.backup_phone')}
+                </label>
+                <input 
+                  type="text" 
+                  name="backupPhone"
+                  value={formData.backupPhone}
+                  onChange={handleChange}
+                  placeholder="+34 612 345 678..." 
+                  className="w-full px-4 py-3 rounded-xl border border-gray-100 outline-none bg-gray-50 focus:ring-2 focus:ring-pink-100 transition-all" 
+                />
+                {errors.backupPhone && <p className="text-red-500 text-xs mt-1 font-bold">{errors.backupPhone}</p>}
+              </div> 
 
               {/* Address Input */}
               <div className="space-y-1">

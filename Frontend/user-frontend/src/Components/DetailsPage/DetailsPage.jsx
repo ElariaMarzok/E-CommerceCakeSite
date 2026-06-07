@@ -23,8 +23,12 @@ export default function DetailsPage() {
   const [quantity, setQuantity]         = useState(1);
   const [activeImg, setActiveImg]       = useState("");
 
-  const API_URL = import.meta.env.VITE_API_URL;
-  const thumbSliderRef = useRef(null); // Ref لسلايدر الصور المصغرة
+  //  التحديد الديناميكي لرابط الباك إند لضمان ظهور الصور في كل البيئات
+  const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:4000' 
+    : 'https://e-commerce-cake-site-dxkh.vercel.app';
+
+  const thumbSliderRef = useRef(null); 
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -52,31 +56,32 @@ export default function DetailsPage() {
   const priceData    = getCurrentPriceData();
   const currentPrice = priceData ? priceData.price : null;
 
+  //  دالة الإضافة الذكية للسلة بالفصل بين الأحجام كطلبات منفصلة
   const handleAdd = () => {
     if (!currentPrice) return;
+    
     addToCart({
-      id:       product._id,
+      //  دمج الـ ID مع الحجم لإنشاء معرف فريد تماماً داخل السلة
+      id:       `${product._id}_${selectedSize}`, 
+      productId: product._id, // نمرر الـ ID الأصلي أيضاً للباك إند عند إنشاء الطلب لاحقاً
       name:     getText(product.name, i18n.language),
       price:    currentPrice,
       quantity: quantity,
       size:     selectedSize,
-      img:      activeImg ? `${API_URL}${activeImg}` : "",
+      img:      activeImg ? (activeImg.startsWith('http') ? activeImg : `${API_URL}${activeImg}`) : "",
     });
   };
 
-  //  دالة تحريك السلايدر الخاص بالصور المصغرة
   const scrollThumbs = (direction) => {
     if (thumbSliderRef.current) {
-      const scrollAmount = 120; // المسافة بالبكسل مع كل ضغطة
+      const scrollAmount = 120; 
       
       if (window.innerWidth >= 1024) {
-        // (التحريك لأعلى وأسفل top)
         thumbSliderRef.current.scrollBy({
           top: direction === 'prev' ? -scrollAmount : scrollAmount,
           behavior: 'smooth'
         });
       } else {
-        // على الموبايل (التحريك لليمين واليسار left)
         thumbSliderRef.current.scrollBy({
           left: direction === 'prev' ? -scrollAmount : scrollAmount,
           behavior: 'smooth'
@@ -122,26 +127,23 @@ export default function DetailsPage() {
           {/* 1. الصورة الكبيرة الثابتة */}
           <div className="w-full h-[350px] sm:h-[450px] md:h-[550px] lg:h-[600px] rounded-[2.5rem] md:rounded-[3rem] overflow-hidden bg-gray-50 shadow-xl border-4 border-white order-1 lg:order-2 lg:flex-1">
             <img
-              src={`${API_URL}${activeImg}`}
+              src={activeImg.startsWith('http') ? activeImg : `${API_URL}${activeImg}`}
               alt={getText(product.name, i18n.language)}
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             />
           </div>
 
-          {/* 2. حاوية السلايدر المصغر (الصور الجانبية) */}
+          {/* 2. حاوية السلايدر المصغر */}
           <div className="flex flex-row lg:flex-col items-center gap-2 order-2 lg:order-1 w-full lg:w-auto flex-shrink-0 relative">
             
-            {/* زر السهم العلوي / الأيسر */}
             <button 
               onClick={() => scrollThumbs('prev')}
               className="p-1 rounded-full bg-pink-50 border border-pink-100 text-pink-500 shadow-sm hover:bg-pink-500 hover:text-white transition-all flex-shrink-0"
             >
-              {/* يظهر سهم فوق للكمبيوتر وسهم شمال للموبايل */}
               <div className="hidden lg:block"><ChevronUp size={20} /></div>
               <div className="block lg:hidden"><ChevronLeft size={20} /></div>
             </button>
 
-            {/* سلة الصور المصغرة (مع تحديد ارتفاع ثابت للكمبيوتر لتعمل كـ Slider عمودي) */}
             <div 
               ref={thumbSliderRef}
               className="flex flex-row lg:flex-col gap-3 overflow-x-auto lg:overflow-y-auto no-scrollbar py-2 lg:py-1 max-w-[calc(100%-70px)] lg:max-w-none lg:h-[480px] scroll-smooth"
@@ -157,17 +159,19 @@ export default function DetailsPage() {
                       : 'border-gray-100 hover:border-pink-200'
                   }`}
                 >
-                  <img src={`${API_URL}${imgUrl}`} className="w-full h-full object-cover" alt="thumbnail" />
+                  <img 
+                    src={imgUrl.startsWith('http') ? imgUrl : `${API_URL}${imgUrl}`} 
+                    className="w-full h-full object-cover" 
+                    alt="thumbnail" 
+                  />
                 </div>
               ))}
             </div>
 
-            {/* زر السهم السفلي / الأيمن */}
             <button 
               onClick={() => scrollThumbs('next')}
               className="p-1 rounded-full bg-pink-50 border border-pink-100 text-pink-500 shadow-sm hover:bg-pink-500 hover:text-white transition-all flex-shrink-0"
             >
-              {/* يظهر سهم تحت للكمبيوتر وسهم يمين للموبايل */}
               <div className="hidden lg:block"><ChevronDown size={20} /></div>
               <div className="block lg:hidden"><ChevronLeft size={20} className="rotate-180" /></div>
             </button>
@@ -205,7 +209,10 @@ export default function DetailsPage() {
                   <button
                     key={size}
                     disabled={!isAvailable}
-                    onClick={() => setSelectedSize(size)}
+                    onClick={() => {
+                      setSelectedSize(size);
+                      setQuantity(1); // إعادة ضبط الكمية إلى 1 عند تغيير الحجم لتجربة مستخدم أفضل
+                    }}
                     className={`flex-1 py-4 rounded-2xl font-black transition-all border-2 relative ${
                       !isAvailable ? 'opacity-30 cursor-not-allowed bg-gray-100' :
                       selectedSize === size

@@ -10,7 +10,9 @@ export default function Order() {
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'; 
+  const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:4000' 
+    : 'https://e-commerce-cake-site-dxkh.vercel.app';
 
   useEffect(() => {
     fetchOrders();
@@ -59,7 +61,7 @@ export default function Order() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this sweet masterpiece? 🎂🗑️")) {
+    if (!window.confirm("Are you sure you want to delete this sweet masterpiece? 🗑️")) {
       return;
     }
 
@@ -197,8 +199,6 @@ export default function Order() {
                           >
                             <CheckCircle size={18} />
                           </button>
-                          
-                          {/* 3. زر الحذف الجديد الأنيق باللون الأحمر عند الـ Hover */}
                           <button 
                             disabled={updatingId === order._id}
                             onClick={() => handleDelete(order._id)}
@@ -258,17 +258,39 @@ export default function Order() {
               <div className="space-y-4">
                 {selectedOrder.items?.map((item, index) => (
                   <div key={index} className="flex items-center gap-4 bg-white p-4 rounded-3xl border border-gray-100 shadow-sm">
-                    {item.img ? (
+                    {(item.img || item.image) ? (
                       <div className="w-14 h-14 rounded-2xl overflow-hidden border border-gray-100 flex-shrink-0">
-                        <img src={item.img} className="w-full h-full object-cover" alt={item.name} />
+                        <img 
+                          src={
+                            (() => {
+                              const imagePath = item.img || item.image;
+                              if (imagePath.startsWith('http')) return imagePath;
+                              const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+                              return `${API_URL}${cleanPath}`;
+                            })()
+                          } 
+                          className="w-full h-full object-cover" 
+                          alt={item.name} 
+                          onError={(e) => {
+                            e.target.src = "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=120&auto=format&fit=crop";
+                          }}
+                        />
                       </div>
                     ) : (
-                      <div className="w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-500 font-black text-[10px] flex-shrink-0">CAKE</div>
+                      <div className="w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-500 font-black text-[10px] flex-shrink-0">
+                        🎂
+                      </div>
                     )}
                     <div className="flex-1">
                       <h4 className="font-black text-gray-800 text-base">{item.name}</h4>
-                      <div className="mt-1 flex items-center gap-2">
-                        <span className="text-[10px] font-black uppercase text-pink-600 bg-pink-100 px-2.5 py-1 rounded-lg border border-pink-200">
+                      <div className="mt-1 flex flex-wrap items-center gap-2">
+                        {/* حقل الـ Category المضاف حديثاً */}
+                        {item.category && (
+                          <span className="text-[10px] font-black uppercase text-pink-700 bg-pink-50 px-2.5 py-1 rounded-lg border border-pink-100/70">
+                            {item.category}
+                          </span>
+                        )}
+                        <span className="text-[10px] font-black uppercase text-gray-600 bg-gray-100 px-2.5 py-1 rounded-lg border border-gray-200">
                           {t('orders.modal.size', 'Size')}: {item.size || "Standard"}
                         </span>
                       </div>
@@ -289,7 +311,6 @@ export default function Order() {
               </div>
               
               <div className="flex gap-3">
-                {/* زر تعديل الحالة داخل المودال */}
                 <button 
                   disabled={updatingId === selectedOrder._id}
                   onClick={() => toggleStatus(selectedOrder._id, selectedOrder.status)}
@@ -302,7 +323,6 @@ export default function Order() {
                   {selectedOrder.status === 'Completed' ? t('orders.modal.order_done', 'Order Done') : t('orders.modal.mark_complete', 'Mark As Complete')}
                 </button>
                 
-                {/* زر حذف الطلب داخل المودال */}
                 <button 
                   disabled={updatingId === selectedOrder._id}
                   onClick={() => handleDelete(selectedOrder._id)}
