@@ -111,7 +111,7 @@ export default function Sweets() {
                 </h3>
             
                 <p className="text-pink-600 font-bold text-lg mb-4">
-                  {sweet.prices?.[0]?.price || 0} {t('currency', 'EGP')}
+                  {sweet.prices?.[0]?.price || 0} {t('currency', '$')}
                 </p>
                 
                 <button 

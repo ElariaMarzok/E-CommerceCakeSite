@@ -113,7 +113,7 @@ export default function Cakes() {
     
 
                 <p className="text-pink-600 font-bold text-lg mb-4">
-                   {cake.prices?.[0]?.price || 0} {t('currency', 'EGP')}
+                   {cake.prices?.[0]?.price || 0} {t('currency', '$')}
                 </p>
                 
                 <button 

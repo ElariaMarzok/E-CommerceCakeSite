@@ -41,7 +41,7 @@
 "cart.error_backup_phone": "Please enter a valid backup phone number",
 "cart.placeholder_backup_phone": "e.g., +34 612 345 678"
   },
-"currency": "EGP",
+"currency": "$",
   "add_to_cart": "Add to Cart",
   
   "loading_boxes": "Loading Boxes... 🎁",

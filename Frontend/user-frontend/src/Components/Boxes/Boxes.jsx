@@ -127,7 +127,7 @@ if (Array.isArray(data)) {
 
 
                 <p className="text-pink-600 font-bold text-lg mb-4">
-                  {box.prices?.[0]?.price || 0} {t('currency', 'EGP')}
+                  {box.prices?.[0]?.price || 0} {t('currency', '$')}
                 </p>
 
                 <button

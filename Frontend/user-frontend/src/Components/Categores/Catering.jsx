@@ -111,7 +111,7 @@ export default function Catering() {
                 </h3>
            
                 <p className="text-pink-600 font-bold text-lg mb-4">
-                  {item.prices?.[0]?.price || 0} {t('currency', 'EGP')}
+                  {item.prices?.[0]?.price || 0} {t('currency', '$')}
                 </p>
                 
                 <button 
