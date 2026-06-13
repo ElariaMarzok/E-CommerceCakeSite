@@ -171,7 +171,7 @@ export default function AddProduct() {
             Description
           </label>
           <textarea
-            name="description" // إضافة خاصية الـ name كخطوة تأمينية إضافية
+            name="description" 
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Enter cake description..."
@@ -184,7 +184,7 @@ export default function AddProduct() {
         <div className="bg-pink-50/20 p-6 rounded-4xl border border-pink-50">
           <label className="block text-xs font-black text-pink-400 uppercase tracking-widest mb-6 text-center">{t('select_sizes_and_prices')}</label>
           <div className="grid grid-cols-1 gap-3">
-            {['Small', 'Medium', 'Large', 'Extra Large'].map((size) => (
+            {['Small', 'Medium', 'Large'].map((size) => (
               <div key={size} className={`flex items-center justify-between p-4 rounded-2xl border-2 transition-all ${selectedSizes[size] !== undefined ? 'bg-white border-pink-200 shadow-sm' : 'border-dashed border-gray-100 opacity-60'}`}>
                 <label className="flex items-center gap-3 cursor-pointer flex-1">
                   <input type="checkbox" checked={selectedSizes[size] !== undefined} onChange={() => handleSizeToggle(size)} className="w-5 h-5 accent-pink-500 rounded-lg" />
@@ -200,7 +200,7 @@ export default function AddProduct() {
                       onChange={(e) => handlePriceChange(size, e.target.value)}
                       className="w-20 bg-pink-50 border-b-2 border-pink-200 text-center font-black text-pink-600 outline-none p-1"
                     />
-                    <span className="text-[10px] font-black text-pink-400">EGP</span>
+                    <span className="text-[10px] font-black text-pink-400">$</span>
                   </div>
                 )}
               </div>
